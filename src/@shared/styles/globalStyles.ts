@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { pretendard } from "shared/utils/fonts";
 
 export default css`
   * {
@@ -21,6 +22,10 @@ export default css`
   svg {
     display: block;
     max-width: 100%;
+  }
+
+  html {
+    font-family: ${pretendard.style.fontFamily};
   }
 
   a {

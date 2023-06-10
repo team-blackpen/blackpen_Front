@@ -7,9 +7,10 @@ const Text = ({
   children,
   variant = "body1",
   fontColor = "black",
+  ...props
 }: PropsWithChildren<TextProps>) => {
   return (
-    <S.Text variant={variant} fontColor={fontColor}>
+    <S.Text variant={variant} fontColor={fontColor} {...props}>
       {children}
     </S.Text>
   );

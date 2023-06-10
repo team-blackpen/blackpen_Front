@@ -6,6 +6,7 @@ import type { LayoutStyleProps } from "./index.types";
 export const Layout = styled.div<LayoutStyleProps>`
   ${({ theme, backgroundColor, padding }) => css`
     @media (${theme.medias.sm}) {
+      position: absolute;
       ${theme.styles.smallWidth};
     }
 
@@ -15,5 +16,6 @@ export const Layout = styled.div<LayoutStyleProps>`
     background-color: ${theme.colors[backgroundColor]};
   `}
 
+  position: relative;
   height: 100dvh;
 `;

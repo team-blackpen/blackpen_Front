@@ -15,7 +15,6 @@ export const Flex = styled.div<FlexStyleProps>`
 
   position: relative;
 
-  height: 100%;
   background-color: transparent;
 
   & > * {

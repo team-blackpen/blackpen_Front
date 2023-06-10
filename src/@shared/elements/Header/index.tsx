@@ -1,18 +1,14 @@
 import type { PropsWithChildren } from "react";
 
+import Flex from "shared/elements/Flex";
 import type { HeaderProps } from "./index.types";
 import * as S from "./index.styles";
-import Flex from "../Flex";
 
 const Header = ({
   children,
   backgroundColor = "white",
 }: PropsWithChildren<HeaderProps>) => {
-  return (
-    <S.Header backgroundColor={backgroundColor}>
-      <Flex alignItems="center">{children}</Flex>
-    </S.Header>
-  );
+  return <S.Header backgroundColor={backgroundColor}>{children}</S.Header>;
 };
 
 const HeaderLeft = ({ children }: PropsWithChildren) => {

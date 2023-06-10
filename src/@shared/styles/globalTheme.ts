@@ -7,7 +7,7 @@ const texts = {
     line-height: 29px;
   `,
   headline2: css`
-    font-weight: 500;
+    font-weight: 400;
     font-size: 20px;
     line-height: 24px;
   `,
@@ -45,18 +45,14 @@ const texts = {
 
 const styles = {
   fullWidth: css`
-    position: relative;
-
     width: 100%;
     min-width: 375px;
   `,
 
   smallWidth: css`
-    position: fixed;
+    width: 375px;
     left: 50%;
     transform: translateX(-50%);
-
-    width: 375px;
   `,
 };
 
@@ -69,6 +65,7 @@ const colors = {
   white: "#fff",
 
   gray1: "#f5f5f5",
+  gray2: "#e0e0e0",
 };
 
 export const theme = {

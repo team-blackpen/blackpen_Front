@@ -11,12 +11,16 @@ export const Header = styled.div<HeaderStyleProps>`
 
     ${theme.styles.fullWidth};
 
-    background-color: ${backgroundColor};
+    background-color: ${theme.colors[backgroundColor]};
   `}
 
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9;
+
+  display: flex;
+  align-items: center;
 
   height: 64px;
 `;

@@ -44,15 +44,14 @@ const texts = {
 };
 
 const styles = {
-  fullScreen: css`
+  fullWidth: css`
     position: relative;
 
     width: 100%;
     min-width: 375px;
-    height: 100dvh;
   `,
 
-  smallScreen: css`
+  smallWidth: css`
     position: fixed;
     left: 50%;
     transform: translateX(-50%);

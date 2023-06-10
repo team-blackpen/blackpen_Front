@@ -15,6 +15,16 @@ export default css`
     box-sizing: border-box;
   }
 
+  :root {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    cursor: default;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    tab-size: 4;
+  }
+
   img,
   picture,
   video,

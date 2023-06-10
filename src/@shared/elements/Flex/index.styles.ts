@@ -13,6 +13,9 @@ export const Flex = styled.div<FlexStyleProps>`
     gap: ${gap}px;
   `}
 
+  position: relative;
+
+  height: 100%;
   background-color: transparent;
 
   & > * {

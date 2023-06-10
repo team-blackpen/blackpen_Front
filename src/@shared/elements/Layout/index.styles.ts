@@ -4,15 +4,16 @@ import { css } from "@emotion/react";
 import type { LayoutStyleProps } from "./index.types";
 
 export const Layout = styled.div<LayoutStyleProps>`
-  ${({ theme, backgroundColor }) => css`
+  ${({ theme, backgroundColor, padding }) => css`
     @media (${theme.medias.sm}) {
-      ${theme.styles.smallScreen};
+      ${theme.styles.smallWidth};
     }
 
-    ${theme.styles.fullScreen};
+    ${theme.styles.fullWidth};
 
+    padding: ${padding};
     background-color: ${theme.colors[backgroundColor]};
   `}
 
-  padding: 0 20px;
+  height: 100dvh;
 `;

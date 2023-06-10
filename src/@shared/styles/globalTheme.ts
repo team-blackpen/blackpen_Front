@@ -68,6 +68,8 @@ const medias = {
 const colors = {
   black: "#000",
   white: "#fff",
+
+  gray1: "#f5f5f5",
 };
 
 export const theme = {

@@ -1,6 +1,5 @@
 import type { PropsWithChildren } from "react";
 
-import Flex from "shared/elements/Flex";
 import type { HeaderProps } from "./index.types";
 import * as S from "./index.styles";
 
@@ -12,27 +11,15 @@ const Header = ({
 };
 
 const HeaderLeft = ({ children }: PropsWithChildren) => {
-  return (
-    <S.HeaderLeft>
-      <Flex alignItems="center">{children}</Flex>
-    </S.HeaderLeft>
-  );
+  return <S.HeaderLeft alignItems="center">{children}</S.HeaderLeft>;
 };
 
 const HeaderCenter = ({ children }: PropsWithChildren) => {
-  return (
-    <S.HeaderCenter>
-      <Flex alignItems="center">{children}</Flex>
-    </S.HeaderCenter>
-  );
+  return <S.HeaderCenter alignItems="center">{children}</S.HeaderCenter>;
 };
 
 const HeaderRight = ({ children }: PropsWithChildren) => {
-  return (
-    <S.HeaderRight>
-      <Flex alignItems="center">{children}</Flex>
-    </S.HeaderRight>
-  );
+  return <S.HeaderRight alignItems="center">{children}</S.HeaderRight>;
 };
 
 Header.Left = HeaderLeft;

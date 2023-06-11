@@ -25,7 +25,7 @@ interface Types {
   /**
    * grid의 align-items 속성을 설정합니다.
    *
-   * @default 'flex-start'
+   * @default 'stretch'
    */
   alignItems: CSSProperties["alignItems"];
 

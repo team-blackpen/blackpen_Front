@@ -17,5 +17,5 @@ export const Layout = styled.div<LayoutStyleProps>`
   `}
 
   position: relative;
-  height: 100dvh;
+  min-height: 100dvh;
 `;

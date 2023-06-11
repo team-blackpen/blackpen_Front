@@ -37,6 +37,13 @@ interface Types {
   alignItems: CSSProperties["alignItems"];
 
   /**
+   * flex의 grows 속성을 설정합니다.
+   *
+   * @default '0'
+   */
+  grows: CSSProperties["flexGrow"];
+
+  /**
    * flex의 gap을 설정합니다.
    *
    * @default 0

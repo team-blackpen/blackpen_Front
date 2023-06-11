@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+import Flex from "shared/elements/Flex";
 import type { HeaderStyleProps } from "./index.types";
 
 export const Header = styled.div<HeaderStyleProps>`
@@ -25,12 +26,9 @@ export const Header = styled.div<HeaderStyleProps>`
   height: 64px;
 `;
 
-export const HeaderChild = styled.div`
+export const HeaderChild = styled(Flex)`
   position: absolute;
-
-  & > * {
-    gap: 8px;
-  }
+  gap: 8px;
 `;
 
 export const HeaderLeft = styled(HeaderChild)`

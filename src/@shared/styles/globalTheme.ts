@@ -34,9 +34,9 @@ const texts = {
   body2: css`
     font-weight: 400;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 21px;
   `,
-  cpation: css`
+  caption: css`
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;

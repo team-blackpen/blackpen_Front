@@ -10,6 +10,7 @@ const Flex = ({
   wrap = "nowrap",
   justifyContent = "flex-start",
   alignItems = "flex-start",
+  grows = 0,
   gap = 0,
   ...props
 }: PropsWithChildren<FlexProps>) => {
@@ -20,6 +21,7 @@ const Flex = ({
       wrap={wrap}
       justifyContent={justifyContent}
       alignItems={alignItems}
+      grows={grows}
       gap={gap}
       {...props}
     >

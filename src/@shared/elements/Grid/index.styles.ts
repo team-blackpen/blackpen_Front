@@ -20,8 +20,8 @@ export const Grid = styled.div<GridStyleProps>`
     align-items: ${alignItems};
     align-content: ${alignContent};
     gap: ${gap}px;
-    column-gap: ${columnGap}px;
-    row-gap: ${rowGap}px;
+    column-gap: ${gap || columnGap}px;
+    row-gap: ${gap || rowGap}px;
   `}
 
   display: grid;

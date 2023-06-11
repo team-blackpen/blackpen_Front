@@ -12,24 +12,22 @@ const TemperatureContainer = () => {
   const color = "black";
 
   return (
-    <S.TemperatureContainer>
-      <Stack gap={4}>
-        <Flex justifyContent="space-between" alignItems="center">
-          <Stack gap={4}>
-            <Text variant="headline2">민수님의</Text>
-            <Text variant="main">마음이 뜨거워요 :)</Text>
-          </Stack>
+    <S.TemperatureContainer gap={4}>
+      <Flex justifyContent="space-between" alignItems="center">
+        <Stack gap={4}>
+          <Text variant="headline2">민수님의</Text>
+          <Text variant="main">마음이 뜨거워요 :)</Text>
+        </Stack>
 
-          <Flex alignItems="center" gap={8}>
-            <Text variant="subtitle1">{temperature} &#8451;</Text>
-            <Text fontColor={color}>
-              <IconTempHeart />
-            </Text>
-          </Flex>
+        <Flex alignItems="center" gap={8}>
+          <Text variant="subtitle1">{temperature} &#8451;</Text>
+          <Text fontColor={color}>
+            <IconTempHeart />
+          </Text>
         </Flex>
+      </Flex>
 
-        <TemperatureBar temperature={temperature} color={color} />
-      </Stack>
+      <TemperatureBar temperature={temperature} color={color} />
     </S.TemperatureContainer>
   );
 };

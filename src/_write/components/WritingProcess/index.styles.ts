@@ -12,6 +12,7 @@ export const WritingProcess = styled.div`
     }
 
     ${theme.styles.fullWidth};
+    background-color: ${theme.colors.white};
   `}
 
   position: fixed;

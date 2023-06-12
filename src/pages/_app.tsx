@@ -7,7 +7,9 @@ import globalStyles from "shared/styles/globalStyles";
 import { theme } from "shared/styles/globalTheme";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () => new QueryClient({ defaultOptions: { queries: { retry: 0 } } }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -14,5 +14,6 @@ const Step = ({ children }: PropsWithChildren<StepProps>) => {
   return <>{children}</>;
 };
 
-Funnel.Step = Step;
-export default Funnel;
+export default Object.assign(Funnel, {
+  Step,
+});

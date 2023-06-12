@@ -1,19 +1,22 @@
-import type { PropsWithChildren } from "react";
+import { type ForwardedRef, type PropsWithChildren, forwardRef } from "react";
 
 import type { FlexProps } from "./index.types";
 import * as S from "./index.styles";
 
-const Flex = ({
-  children,
-  display = "flex",
-  direction = "row",
-  wrap = "nowrap",
-  justifyContent = "flex-start",
-  alignItems = "flex-start",
-  grows = 0,
-  gap = 0,
-  ...props
-}: PropsWithChildren<FlexProps>) => {
+const Flex = (
+  {
+    children,
+    display = "flex",
+    direction = "row",
+    wrap = "nowrap",
+    justifyContent = "flex-start",
+    alignItems = "flex-start",
+    grows = 0,
+    gap = 0,
+    ...props
+  }: PropsWithChildren<FlexProps>,
+  ref: ForwardedRef<HTMLDivElement>,
+) => {
   return (
     <S.Flex
       display={display}
@@ -23,6 +26,7 @@ const Flex = ({
       alignItems={alignItems}
       grows={grows}
       gap={gap}
+      ref={ref}
       {...props}
     >
       {children}
@@ -30,4 +34,4 @@ const Flex = ({
   );
 };
 
-export default Flex;
+export default forwardRef(Flex);

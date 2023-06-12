@@ -56,7 +56,9 @@ const MainCardContainer = () => {
       <MainCardItem href="/main">
         <MainCardItem.Header title="편지함" />
         <MainCardItem.Contents justifyContent="center" alignItems="center">
-          <Text variant="body2">새로 온 편지가 있어요</Text>
+          <Text variant="body2" textAlign="center">
+            새로 온 편지가 있어요
+          </Text>
         </MainCardItem.Contents>
       </MainCardItem>
 
@@ -64,7 +66,7 @@ const MainCardContainer = () => {
         <MainCardItem.Header title="임시저장" />
         <MainCardItem.Contents
           direction="column"
-          justifyContent="center"
+          justifyContent="flex-end"
           alignItems="stretch"
         >
           {DRAFTS.map(({ id, contents, createDt }) => (

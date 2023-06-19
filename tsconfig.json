@@ -18,6 +18,7 @@
     "paths": {
       "login/*": ["./src/_login/*"],
       "main/*": ["./src/_main/*"],
+      "write/*": ["./src/_write/*"],
       "shared/*": ["./src/@shared/*"],
       "pages/*": ["./src/pages/*"]
     }

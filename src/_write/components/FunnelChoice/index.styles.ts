@@ -44,19 +44,19 @@ export const LetterContainer = styled(Stack)`
   margin-top: 8px;
 `;
 
-export const LetterListContainer = styled.div`
-  width: calc(100% + 20px);
-  height: 261px;
-
-  overflow: hidden;
-`;
-
 export const LetterListTitle = styled(Flex)`
   height: 45px;
 
   div:nth-last-of-type(1) {
     cursor: pointer;
   }
+`;
+
+export const LetterListContainer = styled.div`
+  width: calc(100% + 20px);
+  height: 261px;
+
+  overflow: hidden;
 `;
 
 export const LetterList = styled(motion(Stack))`

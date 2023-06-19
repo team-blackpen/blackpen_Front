@@ -1,28 +1,31 @@
 import { useRef } from "react";
-import type { CategoryListTypes } from "src/_write/types";
+import { useRouter } from "next/router";
 
-import Funnel from "shared/elements/Funnel";
+import Tags from "write/elements/Tags";
+import useGetCategoryList from "write/queries/useGetCategoryList";
+import useGetLetterList from "write/queries/useGetLetterList";
+
 import Text from "shared/elements/Text";
 import Stack from "shared/elements/Stack";
 import Flex from "shared/elements/Flex";
 import IconArrow from "shared/icons/IconArrow";
 
-import type { FunnelChoiceProps } from "./index.types";
 import * as S from "./index.styles";
-import Tags from "src/_write/elements/Tags";
 
-const CATEGORY_LIST: CategoryListTypes = [
-  { post_cate_no: 1, post_cate_title: "새로운", view_seq: 0 },
-  { post_cate_no: 2, post_cate_title: "감사", view_seq: 1 },
-  { post_cate_no: 3, post_cate_title: "축하", view_seq: 2 },
-];
+const FunnelChoice = () => {
+  const { push } = useRouter();
+  const handleClickViewAll = (cateNo: number) => {
+    push(`/write/category?no=${cateNo}`);
+  };
 
-const FunnelChoice = ({ page }: FunnelChoiceProps) => {
+  const { data: categoryListData } = useGetCategoryList();
+  const { data: letterListData } = useGetLetterList();
+
   const categoryContainerRef = useRef(null);
-  const letterContainerRef = useRef(null);
+  const letterListContainerRef = useRef(null);
 
   return (
-    <Funnel.Step page={page}>
+    <>
       <S.CategoryContainer ref={categoryContainerRef}>
         <S.CategoryList
           drag="x"
@@ -30,61 +33,86 @@ const FunnelChoice = ({ page }: FunnelChoiceProps) => {
           alignItems="center"
           gap={8}
         >
-          {CATEGORY_LIST.map(({ post_cate_no, post_cate_title }) => (
+          {categoryListData?.map(({ post_cate_no, cate_title }) => (
             <S.CategoryItem key={post_cate_no}>
-              <Text variant="subtitle2">{post_cate_title}</Text>
+              <Text variant="subtitle2">{cate_title}</Text>
             </S.CategoryItem>
           ))}
         </S.CategoryList>
       </S.CategoryContainer>
 
       <S.LetterContainer gap={12}>
-        <S.LetterListTitle alignItems="center" justifyContent="space-between">
-          <Stack direction="row" gap={6}>
-            <Text variant="headline1">새로운</Text>
-          </Stack>
-
-          <Flex alignItems="center" gap={6}>
-            <Text variant="caption" fontColor="gray3">
-              전체보기
-            </Text>
-            <IconArrow size={6} />
-          </Flex>
-        </S.LetterListTitle>
-
-        <S.LetterListContainer ref={letterContainerRef}>
-          <S.LetterList
-            drag="x"
-            dragConstraints={letterContainerRef}
-            direction="row"
-            gap={20}
-          >
-            <S.LetterItem gap={8}>
-              <S.LetterImageContainer
-                justifyContent="center"
-                alignItems="flex-end"
-              ></S.LetterImageContainer>
-
-              <Stack gap={2}>
-                <Text>너의 생일을 축하해</Text>
-                <Stack direction="row" gap={4}>
-                  {["태그", "해시", "설정"].map((tag, idx) => (
-                    <Tags key={idx} tag={tag} />
-                  ))}
+        {categoryListData?.map(
+          ({ post_cate_no, cate_title, cate_eng_title }) => (
+            <>
+              <S.LetterListTitle
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Stack direction="row" gap={6}>
+                  <Text variant="headline1">{cate_title}</Text>
+                  <Text variant="headline1">{cate_eng_title}</Text>
                 </Stack>
-              </Stack>
 
-              <Stack direction="row" gap={2}>
-                <Text>by.</Text>
-                <Text variant="caption" fontColor="gray5">
-                  닉네임
-                </Text>
-              </Stack>
-            </S.LetterItem>
-          </S.LetterList>
-        </S.LetterListContainer>
+                <Flex alignItems="center" gap={6}>
+                  <Text
+                    variant="caption"
+                    fontColor="gray3"
+                    onClick={() => handleClickViewAll(post_cate_no)}
+                  >
+                    전체보기
+                  </Text>
+                  <IconArrow size={6} />
+                </Flex>
+              </S.LetterListTitle>
+
+              <S.LetterListContainer ref={letterListContainerRef}>
+                <S.LetterList
+                  drag="x"
+                  dragConstraints={letterListContainerRef}
+                  direction="row"
+                  gap={20}
+                >
+                  {letterListData?.[post_cate_no - 1]?.map(
+                    ({ post_no, post_title, hashtag, artist_name }) => (
+                      <S.LetterItem gap={8} key={post_no}>
+                        <S.LetterImageContainer
+                          justifyContent="center"
+                          alignItems="flex-end"
+                        ></S.LetterImageContainer>
+
+                        <Stack gap={2}>
+                          <Text>{post_title}</Text>
+                          <Stack direction="row" gap={4}>
+                            {hashtag.map(
+                              ({ post_hashtag_no, hashtag_title }) => (
+                                <Tags
+                                  key={post_hashtag_no}
+                                  tag={hashtag_title}
+                                />
+                              ),
+                            )}
+                          </Stack>
+                        </Stack>
+
+                        <Stack direction="row" gap={2}>
+                          <Text variant="caption" fontColor="gray5">
+                            by.
+                          </Text>
+                          <Text variant="caption" fontColor="gray5">
+                            {artist_name}
+                          </Text>
+                        </Stack>
+                      </S.LetterItem>
+                    ),
+                  )}
+                </S.LetterList>
+              </S.LetterListContainer>
+            </>
+          ),
+        )}
       </S.LetterContainer>
-    </Funnel.Step>
+    </>
   );
 };
 

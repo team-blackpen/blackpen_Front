@@ -7,7 +7,7 @@ const Text = ({
   children,
   variant = "body1",
   fontColor = "black",
-  width = "fit-content",
+  width = "",
   textAlign = "left",
   truncate = false,
   ...props

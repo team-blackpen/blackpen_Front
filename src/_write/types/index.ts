@@ -3,6 +3,17 @@ interface HashTagItemTypes {
   hashtag_title: string;
 }
 
+export interface LetterDetailTypes {
+  artist_name: string;
+  artist_no: number;
+  hashtag: HashTagItemTypes[];
+  post_description: string;
+  post_img: { img_url: string; post_img_no: number }[];
+  post_no: number;
+  post_title: string;
+  wish: number;
+}
+
 export interface LetterItemTypes {
   artist_name: string;
   artist_no: number;

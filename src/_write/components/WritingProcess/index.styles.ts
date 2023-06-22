@@ -50,26 +50,12 @@ export const Track = styled.div<TrackStyleProps>`
   ${({ theme, step }) => css`
     background-color: ${theme.colors.black};
 
-    ${step === 1
-      ? css`
-          left: 0;
-        `
-      : step === 2
-      ? css`
-          left: 50%;
-          transform: translateX(-50%);
-        `
-      : step === 3
-      ? css`
-          right: 0;
-        `
-      : null}
+    width: calc((${step} / 3) * 100%);
   `}
 
   position: absolute;
   top: 0;
 
-  width: calc(100% / 3);
   height: 4px;
   border-radius: 9999px;
 `;

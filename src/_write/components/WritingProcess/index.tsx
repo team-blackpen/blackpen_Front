@@ -22,7 +22,7 @@ const PROCESS = [
 
 const WritingProcess = ({ step }: WritingProcessProps) => {
   const isStep = (page: number) => {
-    return step === page || (!step && page === 1);
+    return step >= page || (!step && page === 1);
   };
 
   return (

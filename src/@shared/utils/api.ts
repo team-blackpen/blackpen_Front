@@ -5,3 +5,9 @@ const api = axios.create({
 });
 
 export default api;
+
+export const kakaoLogin = async (code: string) => {
+  const { data } = await api.get("/auth/kakao/callback", { params: { code } });
+
+  console.log(data);
+};

@@ -69,6 +69,8 @@ const colors = {
   gray3: "#aaa",
   gray4: "#8A8A8A",
   gray5: "#666666",
+
+  bgGray: "#f0f0f0",
 };
 
 export const theme = {

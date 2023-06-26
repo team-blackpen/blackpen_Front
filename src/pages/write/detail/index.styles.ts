@@ -39,6 +39,8 @@ export const DetailInfo = styled.div`
     border-bottom: 1px solid ${theme.colors.gray2};
   `}
 
+  position: relative;
+
   padding: 24px 20px 17px 20px;
 
   span:nth-of-type(2) {

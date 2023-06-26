@@ -10,6 +10,7 @@ import Layout from "shared/elements/Layout";
 import Text from "shared/elements/Text";
 import Bottom from "shared/elements/Bottom";
 import BasicButton from "shared/elements/BasicButton";
+import WishButton from "shared/elements/WishButton";
 import useFunnel from "shared/hooks/useFunnel";
 import IconBack from "shared/icons/IconBack";
 
@@ -59,6 +60,8 @@ const ViewDetail = () => {
             </S.ImageContainer>
 
             <S.DetailInfo>
+              <WishButton size={40} top="20px" right="20px" />
+
               <Text variant="headline2">{detailData.post_title}</Text>
 
               <Text variant="body2" fontColor="gray5">

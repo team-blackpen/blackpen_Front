@@ -13,7 +13,7 @@ export const CategoryContainer = styled.div`
 
   position: sticky;
   top: 132px;
-  z-index: 9;
+  z-index: 99;
   overflow: hidden;
 
   width: calc(100% + 20px);
@@ -80,18 +80,18 @@ export const LetterImage = styled(Flex)`
   width: 182px;
   aspect-ratio: 1 / 1;
   border-radius: 14px;
+`;
 
-  div {
-    position: relative;
+export const ImageContainer = styled.div`
+  position: relative;
 
-    width: calc(100% - 32px);
-    height: calc(100% - 32px);
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
 
-    filter: drop-shadow(1.19318px 1.67045px 2.38636px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(1.19318px 1.67045px 2.38636px rgba(0, 0, 0, 0.2));
 
-    img {
-      object-fit: contain;
-    }
+  img {
+    object-fit: contain;
   }
 `;
 

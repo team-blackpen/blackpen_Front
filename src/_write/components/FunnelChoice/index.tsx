@@ -20,10 +20,10 @@ const FunnelChoice = () => {
   const { data: categoryListData } = useGetCategoryList();
   const categoryContainerRef = useRef(null);
   const [categoryX, setCategoryX] = useState({ up: 0, down: 0 });
-  const handleClickCategory = (cateNo: number) => {
+  const handleClickCategory = (idx: number) => {
     if (categoryX.up !== categoryX.down) return;
 
-    const target = listRef.current[cateNo - 1];
+    const target = listRef.current[idx];
     if (target) {
       target.scrollIntoView({
         block: "center",
@@ -78,24 +78,22 @@ const FunnelChoice = () => {
           alignItems="center"
           gap={8}
         >
-          {categoryListData?.map(({ post_cate_no, cate_title }) => (
+          {categoryListData?.map(({ post_cate_no, cate_title }, idx) => (
             <S.CategoryItem
               key={post_cate_no}
-              selected={listRef.current[post_cate_no - 1] === currentTab}
+              selected={listRef.current[idx] === currentTab}
               onPointerDown={(e) =>
                 setCategoryX((prev) => ({ ...prev, down: e.clientX }))
               }
               onPointerUp={(e) =>
                 setCategoryX((prev) => ({ ...prev, up: e.clientX }))
               }
-              onClick={() => handleClickCategory(post_cate_no)}
+              onClick={() => handleClickCategory(idx)}
             >
               <Text
                 variant="subtitle2"
                 fontColor={
-                  listRef.current[post_cate_no - 1] === currentTab
-                    ? "black"
-                    : "gray3"
+                  listRef.current[idx] === currentTab ? "black" : "gray3"
                 }
               >
                 {cate_title}
@@ -106,101 +104,87 @@ const FunnelChoice = () => {
       </S.CategoryContainer>
 
       <S.AllLetterList gap={32}>
-        {categoryListData?.map(
-          ({ post_cate_no, cate_title, cate_eng_title }) => (
-            <Stack
-              key={post_cate_no}
-              ref={(el) => (listRef.current[post_cate_no - 1] = el)}
+        {categoryListData?.map(({ post_cate_no, cate_title }, idx) => (
+          <Stack key={post_cate_no} ref={(el) => (listRef.current[idx] = el)}>
+            <S.LetterListTitle
+              alignItems="center"
+              justifyContent="space-between"
             >
-              <S.LetterListTitle
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Flex alignItems="center" gap={6}>
-                  <Text variant="headline1">{cate_title}</Text>
-                  <Text variant="headline1">{cate_eng_title}</Text>
-                </Flex>
+              <Flex alignItems="center" gap={6}>
+                <Text variant="headline1">{cate_title}</Text>
+              </Flex>
 
-                <Link href={`/write/category?no=${post_cate_no}`}>
-                  <Flex
-                    alignItems="center"
-                    gap={6}
-                    onClick={() => handleClickViewAll(post_cate_no)}
-                  >
-                    <Text variant="caption" fontColor="gray3">
-                      전체보기
-                    </Text>
-                    <IconArrow size={6} />
-                  </Flex>
-                </Link>
-              </S.LetterListTitle>
-
-              <S.LetterListContainer ref={letterListContainerRef}>
-                <S.LetterList
-                  drag="x"
-                  dragConstraints={letterListContainerRef}
-                  direction="row"
-                  gap={20}
+              <Link href={`/write/category?no=${post_cate_no}`}>
+                <Flex
+                  alignItems="center"
+                  gap={6}
+                  onClick={() => handleClickViewAll(post_cate_no)}
                 >
-                  {letterListData?.[post_cate_no - 1]?.map(
-                    ({
-                      post_no,
-                      img_url,
-                      post_title,
-                      hashtag,
-                      artist_name,
-                    }) => (
-                      <S.LetterItem
-                        key={post_no}
-                        onPointerDown={(e) =>
-                          setMouseX((prev) => ({ ...prev, down: e.clientX }))
-                        }
-                        onPointerUp={(e) =>
-                          setMouseX((prev) => ({ ...prev, up: e.clientX }))
-                        }
-                        onClick={() => handleClickViewDetail(post_no)}
+                  <Text variant="caption" fontColor="gray3">
+                    전체보기
+                  </Text>
+                  <IconArrow size={6} />
+                </Flex>
+              </Link>
+            </S.LetterListTitle>
+
+            <S.LetterListContainer ref={letterListContainerRef}>
+              <S.LetterList
+                drag="x"
+                dragConstraints={letterListContainerRef}
+                direction="row"
+                gap={20}
+              >
+                {letterListData?.[idx]?.map(
+                  ({ post_no, img_url, post_title, hashtag, artist_name }) => (
+                    <S.LetterItem
+                      key={post_no}
+                      onPointerDown={(e) =>
+                        setMouseX((prev) => ({ ...prev, down: e.clientX }))
+                      }
+                      onPointerUp={(e) =>
+                        setMouseX((prev) => ({ ...prev, up: e.clientX }))
+                      }
+                      onClick={() => handleClickViewDetail(post_no)}
+                    >
+                      <S.LetterImage
+                        justifyContent="center"
+                        alignItems="center"
                       >
-                        <S.LetterImage
-                          justifyContent="center"
-                          alignItems="center"
-                        >
-                          <div>
-                            {/* <Image
-                              src={img_url}
-                              alt="post_image"
-                              fill
-                              sizes="150px"
-                              priority
-                            /> */}
-                          </div>
-                        </S.LetterImage>
+                        <S.ImageContainer>
+                          <Image
+                            src={img_url}
+                            alt="post_image"
+                            fill
+                            sizes="150px"
+                            priority
+                          />
+                        </S.ImageContainer>
+                      </S.LetterImage>
 
-                        <S.LetterTitle truncate>{post_title}</S.LetterTitle>
+                      <S.LetterTitle truncate>{post_title}</S.LetterTitle>
 
-                        <S.LetterTags direction="row" gap={2}>
-                          {hashtag?.map(
-                            ({ post_hashtag_no, hashtag_title }) => (
-                              <Tags key={post_hashtag_no} tag={hashtag_title} />
-                            ),
-                          )}
-                        </S.LetterTags>
+                      <S.LetterTags direction="row" gap={2}>
+                        {hashtag?.map(({ post_hashtag_no, hashtag_title }) => (
+                          <Tags key={post_hashtag_no} tag={hashtag_title} />
+                        ))}
+                      </S.LetterTags>
 
-                        <S.LetterArtist direction="row" gap={2}>
-                          <Text variant="caption" fontColor="gray5">
-                            by.
-                          </Text>
-                          <Text variant="caption" fontColor="gray5">
-                            {artist_name}
-                          </Text>
-                        </S.LetterArtist>
-                      </S.LetterItem>
-                    ),
-                  )}
-                </S.LetterList>
-              </S.LetterListContainer>
-            </Stack>
-          ),
-        )}
+                      <S.LetterArtist direction="row" gap={2}>
+                        <Text variant="caption" fontColor="gray5">
+                          by.
+                        </Text>
+                        <Text variant="caption" fontColor="gray5">
+                          {artist_name}
+                        </Text>
+                      </S.LetterArtist>
+                    </S.LetterItem>
+                  ),
+                )}
+              </S.LetterList>
+            </S.LetterListContainer>
+          </Stack>
+        ))}
       </S.AllLetterList>
     </>
   );

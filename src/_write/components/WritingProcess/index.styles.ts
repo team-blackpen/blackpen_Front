@@ -18,7 +18,7 @@ export const WritingProcess = styled.div`
   position: fixed;
   top: 64px;
   left: 0;
-  z-index: 9;
+  z-index: 99;
 
   padding: 0 20px;
   height: 68px;

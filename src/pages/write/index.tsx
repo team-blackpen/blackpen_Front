@@ -3,6 +3,7 @@ import type { GetServerSideProps } from "next";
 import WriteHeader from "write/components/WriteHeader";
 import WritingProcess from "write/components/WritingProcess";
 import FunnelChoice from "write/components/FunnelChoice";
+import FunnelWrite from "write/components/FunnelWrite";
 
 import Layout from "shared/elements/Layout";
 import Funnel from "shared/elements/Funnel";
@@ -21,7 +22,11 @@ const Write = () => {
           <Funnel.Step page={1}>
             <FunnelChoice />
           </Funnel.Step>
-          <Funnel.Step page={2}>2</Funnel.Step>
+
+          <Funnel.Step page={2}>
+            <FunnelWrite />
+          </Funnel.Step>
+
           <Funnel.Step page={3}>3</Funnel.Step>
         </Funnel>
       </Layout>

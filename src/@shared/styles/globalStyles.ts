@@ -34,6 +34,10 @@ export default css`
     max-width: 100%;
   }
 
+  img {
+    -webkit-user-drag: none;
+  }
+
   html {
     font-family: ${pretendard.style.fontFamily};
   }

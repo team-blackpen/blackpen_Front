@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Link from "next/link";
 
 import Flex from "shared/elements/Flex";
 import Grid from "shared/elements/Grid";
@@ -12,7 +11,7 @@ export const LetterList = styled(Grid)`
   min-height: fit-content;
 `;
 
-export const LetterItem = styled(Link)`
+export const LetterItem = styled.div`
   min-width: 0;
 `;
 
@@ -21,21 +20,23 @@ export const LetterImage = styled(Flex)`
     background-color: ${theme.colors.bgGray};
   `}
 
+  position: relative;
+
   min-height: 192px;
   aspect-ratio: 157 / 192;
   border-radius: 14px;
+`;
 
-  div {
-    position: relative;
+export const ImageContainer = styled.button`
+  position: relative;
 
-    width: calc(100% - 23px);
-    height: calc(100% - 42px);
+  width: calc(100% - 23px);
+  height: calc(100% - 42px);
 
-    filter: drop-shadow(1.19318px 1.67045px 2.38636px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(1.19318px 1.67045px 2.38636px rgba(0, 0, 0, 0.2));
 
-    img {
-      object-fit: contain;
-    }
+  img {
+    object-fit: contain;
   }
 `;
 

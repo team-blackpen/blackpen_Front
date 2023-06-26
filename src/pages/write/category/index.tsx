@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, type MouseEvent } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -9,6 +9,8 @@ import Layout from "shared/elements/Layout";
 import Header from "shared/elements/Header";
 import IconButton from "shared/elements/IconButton";
 import Text from "shared/elements/Text";
+import WishButton from "shared/elements/WishButton";
+import useInfinite from "shared/hooks/useInfinite";
 import IconBack from "shared/icons/IconBack";
 
 import * as S from "./index.styles";
@@ -16,6 +18,13 @@ import * as S from "./index.styles";
 const ViewCategory = () => {
   const { data, hasNextPage, isFetching, fetchNextPage } =
     useGetLetterListByCategory();
+
+  const ref = useInfinite(async (entry, observer) => {
+    observer.unobserve(entry.target);
+    if (hasNextPage && !isFetching) {
+      fetchNextPage();
+    }
+  });
 
   const categoryNameData = useMemo(
     () => (data ? data.pages[0].data.cate_title : ""),
@@ -28,9 +37,18 @@ const ViewCategory = () => {
     [data],
   );
 
-  const { back } = useRouter();
+  const { push, back } = useRouter();
   const handleClickBack = () => {
     back();
+  };
+
+  const handleClickItem = (postNo: number) => {
+    push(`/write/detail?no=${postNo}`);
+  };
+
+  const handleClickWish = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    console.log("buttonClick");
   };
 
   return (
@@ -48,9 +66,18 @@ const ViewCategory = () => {
         <S.LetterList rowGap={32} columnGap={20}>
           {letterListData?.map(
             ({ post_no, img_url, post_title, hashtag, artist_name }) => (
-              <S.LetterItem key={post_no} href={`/write/detail?no=${post_no}`}>
+              <S.LetterItem
+                key={post_no}
+                onClick={() => handleClickItem(post_no)}
+              >
                 <S.LetterImage justifyContent="center" alignItems="center">
-                  <div>
+                  <WishButton
+                    bottom="8px"
+                    right="8px"
+                    onClick={(e) => handleClickWish(e)}
+                  />
+
+                  <S.ImageContainer>
                     <Image
                       src={img_url}
                       alt="post_image"
@@ -58,7 +85,7 @@ const ViewCategory = () => {
                       sizes="150px"
                       priority
                     />
-                  </div>
+                  </S.ImageContainer>
                 </S.LetterImage>
 
                 <S.LetterTitle truncate>{post_title}</S.LetterTitle>
@@ -81,6 +108,8 @@ const ViewCategory = () => {
             ),
           )}
         </S.LetterList>
+
+        <div ref={ref} />
       </Layout>
     </>
   );

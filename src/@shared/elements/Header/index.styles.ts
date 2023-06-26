@@ -18,7 +18,7 @@ export const Header = styled.div<HeaderStyleProps>`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 99;
 
   display: flex;
   align-items: center;

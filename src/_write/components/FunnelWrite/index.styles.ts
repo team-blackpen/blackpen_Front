@@ -52,6 +52,7 @@ export const Pagination = styled.div<{ page: boolean }>`
 
 export const ButtonCatiner = styled(Flex)`
   margin-top: 16px;
+  margin-bottom: 20px;
 `;
 
 export const NaviPrev = styled.button`

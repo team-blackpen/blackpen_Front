@@ -10,6 +10,7 @@ import useGetLetterList from "write/queries/useGetLetterList";
 import Text from "shared/elements/Text";
 import Stack from "shared/elements/Stack";
 import Flex from "shared/elements/Flex";
+import Layout from "shared/elements/Layout";
 import IconArrow from "shared/icons/IconArrow";
 
 import * as S from "./index.styles";
@@ -70,7 +71,7 @@ const FunnelChoice = () => {
   }, [categoryListData?.length, listRef.current.length]);
 
   return (
-    <>
+    <Layout padding="132px 20px 20px 20px">
       <S.CategoryContainer ref={categoryContainerRef}>
         <S.CategoryList
           drag="x"
@@ -186,7 +187,7 @@ const FunnelChoice = () => {
           </Stack>
         ))}
       </S.AllLetterList>
-    </>
+    </Layout>
   );
 };
 

@@ -5,7 +5,6 @@ import WritingProcess from "write/components/WritingProcess";
 import FunnelChoice from "write/components/FunnelChoice";
 import FunnelWrite from "write/components/FunnelWrite";
 
-import Layout from "shared/elements/Layout";
 import Funnel from "shared/elements/Funnel";
 import useFunnel from "shared/hooks/useFunnel";
 
@@ -17,19 +16,17 @@ const Write = () => {
       <WriteHeader />
       <WritingProcess step={step} />
 
-      <Layout padding="132px 20px 20px 20px">
-        <Funnel step={step}>
-          <Funnel.Step page={1}>
-            <FunnelChoice />
-          </Funnel.Step>
+      <Funnel step={step}>
+        <Funnel.Step page={1}>
+          <FunnelChoice />
+        </Funnel.Step>
 
-          <Funnel.Step page={2}>
-            <FunnelWrite />
-          </Funnel.Step>
+        <Funnel.Step page={2}>
+          <FunnelWrite />
+        </Funnel.Step>
 
-          <Funnel.Step page={3}>3</Funnel.Step>
-        </Funnel>
-      </Layout>
+        <Funnel.Step page={3}>3</Funnel.Step>
+      </Funnel>
     </>
   );
 };

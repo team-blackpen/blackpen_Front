@@ -21,9 +21,12 @@ export const BasicButton = styled.button<BasicButtonStyleProps>`
     }
   }};
 
-  ${({ theme }) => theme.texts.subtitle1};
+  ${({ theme, width, height, fontVariant }) => css`
+    ${theme.texts[fontVariant]};
 
-  width: 100%;
-  height: 54px;
+    width: ${width};
+    height: ${height};
+  `};
+
   border-radius: 10px;
 `;

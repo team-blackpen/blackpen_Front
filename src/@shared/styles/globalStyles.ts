@@ -56,6 +56,11 @@ export default css`
   textarea {
     outline: none;
     border: 0;
+    background-color: transparent;
+  }
+
+  textarea {
+    resize: none;
   }
 
   li {

@@ -4,11 +4,13 @@ import styled from "@emotion/styled";
 import type { TextStyleProps } from "./index.types";
 
 export const Text = styled.span<TextStyleProps>`
-  ${({ theme, variant, fontColor, width, textAlign, truncate }) => css`
-    ${theme.texts[variant]};
+  ${({ theme, variant, fontColor, display, width, textAlign, truncate }) => css`
+    display: ${display};
+
     width: ${width};
 
     color: ${theme.colors[fontColor]};
+    ${theme.texts[variant]};
     text-align: ${textAlign};
 
     ${truncate
@@ -21,8 +23,6 @@ export const Text = styled.span<TextStyleProps>`
           white-space: pre-line;
         `}
   `}
-
-  display: block;
 
   min-width: 0;
 `;

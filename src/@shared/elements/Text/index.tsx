@@ -6,6 +6,7 @@ import * as S from "./index.styles";
 const Text = ({
   children,
   variant = "body1",
+  display = "block",
   fontColor = "black",
   width = "",
   textAlign = "left",
@@ -16,6 +17,7 @@ const Text = ({
     <S.Text
       variant={variant}
       fontColor={fontColor}
+      display={display}
       width={width}
       textAlign={textAlign}
       truncate={truncate}

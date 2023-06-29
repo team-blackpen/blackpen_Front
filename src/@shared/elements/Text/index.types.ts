@@ -10,6 +10,13 @@ interface Types {
   variant: TextsType;
 
   /**
+   * 폰트 display를 설정합니다.
+   *
+   * @default block
+   */
+  display: "block" | "flex";
+
+  /**
    * 폰트 컬러를 설정합니다.
    *
    * @default black

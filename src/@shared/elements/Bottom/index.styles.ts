@@ -21,5 +21,5 @@ export const Bottom = styled(Flex)<BottomStyleProps>`
   left: 0;
   z-index: 9;
 
-  padding: 0 20px;
+  padding: 10px 20px 0 20px;
 `;

@@ -6,7 +6,7 @@ import Bottom from "shared/elements/Bottom";
 import BasicButton from "shared/elements/BasicButton";
 import Layout from "shared/elements/Layout";
 import useFunnel from "shared/hooks/useFunnel";
-import IconNavi from "shared/icons/iconNavi";
+import IconNavi from "shared/icons/IconNavi";
 
 import * as S from "./index.styles";
 

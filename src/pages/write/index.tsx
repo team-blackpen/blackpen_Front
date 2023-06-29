@@ -4,15 +4,19 @@ import WriteHeader from "write/components/WriteHeader";
 import WritingProcess from "write/components/WritingProcess";
 import FunnelChoice from "write/components/FunnelChoice";
 import FunnelWrite from "write/components/FunnelWrite";
+import FunnelSend from "write/components/FunnelSend";
 
 import Funnel from "shared/elements/Funnel";
 import useFunnel from "shared/hooks/useFunnel";
+import SendModal from "write/components/SendModal";
 
 const Write = () => {
   const [step] = useFunnel({ pathName: "write", queryName: "step" });
 
   return (
     <>
+      <SendModal />
+
       <WriteHeader />
       <WritingProcess step={step} />
 
@@ -25,7 +29,9 @@ const Write = () => {
           <FunnelWrite />
         </Funnel.Step>
 
-        <Funnel.Step page={3}>3</Funnel.Step>
+        <Funnel.Step page={3}>
+          <FunnelSend />
+        </Funnel.Step>
       </Funnel>
     </>
   );

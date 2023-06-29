@@ -61,7 +61,7 @@ const medias = {
 };
 
 const colors = {
-  black: "#000",
+  black: "#323232",
   white: "#fff",
 
   gray1: "#f5f5f5",
@@ -71,6 +71,8 @@ const colors = {
   gray5: "#666666",
 
   bgGray: "#f0f0f0",
+
+  blue: "#2F73F6",
 };
 
 export const theme = {

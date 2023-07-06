@@ -4,12 +4,13 @@ import BasicButton from "shared/elements/BasicButton";
 import Bottom from "shared/elements/Bottom";
 import Layout from "shared/elements/Layout";
 import Stack from "shared/elements/Stack";
-import { useModalActions } from "shared/stores/useModalStore";
+import useFunnel from "shared/hooks/useFunnel";
 
 const FunnelReservation = () => {
-  const { changeModalState } = useModalActions();
+  const [, setStep] = useFunnel({ pathName: "/write", queryName: "send" });
+
   const handleClickSend = () => {
-    changeModalState("send");
+    setStep(4);
   };
 
   return (

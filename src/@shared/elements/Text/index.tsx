@@ -11,6 +11,7 @@ const Text = ({
   width = "",
   textAlign = "left",
   truncate = false,
+  lineClamp = false,
   ...props
 }: PropsWithChildren<TextProps>) => {
   return (
@@ -21,6 +22,7 @@ const Text = ({
       width={width}
       textAlign={textAlign}
       truncate={truncate}
+      lineClamp={lineClamp}
       {...props}
     >
       {children}

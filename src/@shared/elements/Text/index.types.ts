@@ -43,6 +43,13 @@ interface Types {
    * @default false
    */
   truncate: boolean;
+
+  /**
+   * multiline의 말줄임표를 설정합니다.
+   *
+   * @default false
+   */
+  lineClamp: number | false;
 }
 
 export type TextProps = Partial<Types> & HTMLAttributes<HTMLSpanElement>;

@@ -1,6 +1,7 @@
 import FunnelRecipient from "write/components/FunnelRecipient";
 import FunnelSender from "write/components/FunnelSender";
 import FunnelReservation from "write/components/FunnelReservation";
+import FunnelFinish from "write/components/FunnelFinish";
 
 import Funnel from "shared/elements/Funnel";
 import useFunnel from "shared/hooks/useFunnel";
@@ -20,6 +21,10 @@ const FunnelSend = () => {
 
       <Funnel.Step page={3}>
         <FunnelReservation />
+      </Funnel.Step>
+
+      <Funnel.Step page={4}>
+        <FunnelFinish />
       </Funnel.Step>
     </Funnel>
   );

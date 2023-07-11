@@ -1,5 +1,7 @@
 import MainCardItem from "main/elements/MainCardItem";
 import Text from "shared/elements/Text";
+import IconLetter from "shared/icons/IconLetter";
+
 import * as S from "./index.styles";
 
 const DRAFTS = [
@@ -26,7 +28,7 @@ const MainCardContainer = () => {
       <MainCardItem href="/write">
         <MainCardItem.Header title={`편지 작성\n하러가기`} />
         <MainCardItem.Contents justifyContent="flex-end" alignItems="flex-end">
-          이미지
+          <IconLetter />
         </MainCardItem.Contents>
       </MainCardItem>
 

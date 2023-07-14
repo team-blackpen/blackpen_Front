@@ -7,6 +7,7 @@ import * as S from "./index.styles";
 const Bottom = ({
   children,
   backgroundColor = "white",
+  position = "fixed",
   height = "86px",
   gap = 8,
   ...props
@@ -16,6 +17,7 @@ const Bottom = ({
       display="flex"
       gap={gap}
       backgroundColor={backgroundColor}
+      position={position}
       height={height}
       {...props}
     >

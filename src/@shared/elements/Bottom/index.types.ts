@@ -10,6 +10,13 @@ interface Types {
   backgroundColor: ColorsType;
 
   /**
+   * bottom의 position을 설정합니다.
+   *
+   * @default fixed
+   */
+  position: CSSProperties["position"];
+
+  /**
    * bottom의 height를 설정합니다.
    *
    * @default 86px

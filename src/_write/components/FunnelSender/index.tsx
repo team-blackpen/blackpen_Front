@@ -6,9 +6,29 @@ import Stack from "shared/elements/Stack";
 import Bottom from "shared/elements/Bottom";
 import BasicButton from "shared/elements/BasicButton";
 import useFunnel from "shared/hooks/useFunnel";
+import {
+  useLetterActions,
+  useSenderPhoneState,
+  useSenderState,
+  useStageState,
+} from "shared/stores/useLetterStore";
+import { useEffect } from "react";
 
 const FunnelSender = () => {
+  const nickname = useSenderState();
+  const phoneNumber = useSenderPhoneState();
+  const stage = useStageState();
+  const { changeLetterState } = useLetterActions();
+
   const [, setStep] = useFunnel({ pathName: "/write", queryName: "send" });
+  const handleClickNext = () => {
+    setStep(3);
+  };
+
+  useEffect(() => {
+    if (stage === 2) return;
+    changeLetterState("stage", 2);
+  }, []);
 
   return (
     <>
@@ -26,6 +46,8 @@ const FunnelSender = () => {
               <Input.Label required>닉네임</Input.Label>
               <Input
                 placeholder="최대 8글자까지 입력할 수 있어요"
+                value={nickname}
+                onChange={(e) => changeLetterState("sender", e.target.value)}
                 maxLength={8}
                 required
               />
@@ -34,7 +56,12 @@ const FunnelSender = () => {
             <Input.Container>
               <Input.Label required>전화번호</Input.Label>
               <Input
+                type="number"
                 placeholder="'-'를 제외한 숫자만 입력해주세요"
+                value={phoneNumber}
+                onChange={(e) =>
+                  changeLetterState("senderPhone", e.target.value)
+                }
                 maxLength={12}
                 required
               />
@@ -44,7 +71,7 @@ const FunnelSender = () => {
       </Layout>
 
       <Bottom>
-        <BasicButton onClick={() => setStep(3)}>다음</BasicButton>
+        <BasicButton onClick={handleClickNext}>다음</BasicButton>
       </Bottom>
     </>
   );

@@ -8,12 +8,25 @@ import Input from "shared/elements/Input";
 import Layout from "shared/elements/Layout";
 import Stack from "shared/elements/Stack";
 import useFunnel from "shared/hooks/useFunnel";
+import {
+  useLetterActions,
+  useRecipientPhoneState,
+  useRecipientState,
+  useStageState,
+} from "shared/stores/useLetterStore";
 
 const FunnelRecipient = () => {
+  const nickname = useRecipientState();
+  const phoneNumber = useRecipientPhoneState();
+  const stage = useStageState();
+  const { changeLetterState } = useLetterActions();
+
   const [, setStep] = useFunnel({ pathName: "/write", queryName: "send" });
+  const handleClickNext = () => {
+    setStep(2);
+  };
 
   const [sequence, setSequence] = useState(1);
-
   useEffect(() => {
     const sequenceFirst = setTimeout(() => {
       setSequence((prev) => ++prev);
@@ -22,6 +35,9 @@ const FunnelRecipient = () => {
     const sequenceSecond = setTimeout(() => {
       setSequence((prev) => ++prev);
     }, 3000);
+
+    if (stage === 1) return;
+    changeLetterState("stage", 1);
 
     return () => {
       clearTimeout(sequenceFirst);
@@ -62,6 +78,10 @@ const FunnelRecipient = () => {
                 <Input.Label required>닉네임</Input.Label>
                 <Input
                   placeholder="최대 8글자까지 입력할 수 있어요"
+                  value={nickname}
+                  onChange={(e) =>
+                    changeLetterState("recipient", e.target.value)
+                  }
                   maxLength={8}
                   required
                 />
@@ -71,6 +91,11 @@ const FunnelRecipient = () => {
                 <Input.Label required>전화번호</Input.Label>
                 <Input
                   placeholder="'-'를 제외한 숫자만 입력해주세요"
+                  type="number"
+                  value={phoneNumber}
+                  onChange={(e) =>
+                    changeLetterState("recipientPhone", e.target.value)
+                  }
                   maxLength={12}
                   required
                 />
@@ -82,7 +107,7 @@ const FunnelRecipient = () => {
 
       {sequence === 3 && (
         <Bottom>
-          <BasicButton onClick={() => setStep(2)}>다음</BasicButton>
+          <BasicButton onClick={handleClickNext}>다음</BasicButton>
         </Bottom>
       )}
     </>

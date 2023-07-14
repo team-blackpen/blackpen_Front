@@ -6,16 +6,16 @@ import FunnelChoice from "write/components/FunnelChoice";
 import FunnelWrite from "write/components/FunnelWrite";
 import FunnelSend from "write/components/FunnelSend";
 
+import ModalDrafts from "shared/components/ModalDrafts";
 import Funnel from "shared/elements/Funnel";
 import useFunnel from "shared/hooks/useFunnel";
-import SendModal from "write/components/SendModal";
 
 const Write = () => {
   const [step] = useFunnel({ pathName: "write", queryName: "step" });
 
   return (
     <>
-      <SendModal />
+      <ModalDrafts />
 
       <WriteHeader />
       <WritingProcess step={step} />

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "send";
+export type ModalType = "drafts";
 
 type State = {
   [K in ModalType]: boolean;
@@ -15,7 +15,7 @@ interface Actions {
 interface ModalState extends State, Actions {}
 
 const useModalStore = create<ModalState>((set) => ({
-  send: false,
+  drafts: false,
   actions: {
     changeModalState: (type) => {
       set((state) => ({ ...state, [type]: !state[type] }));

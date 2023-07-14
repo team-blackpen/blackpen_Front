@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -13,14 +14,21 @@ import BasicButton from "shared/elements/BasicButton";
 import WishButton from "shared/elements/WishButton";
 import useFunnel from "shared/hooks/useFunnel";
 import IconBack from "shared/icons/IconBack";
+import { useLetterActions } from "shared/stores/useLetterStore";
 
 import * as S from "./index.styles";
 
 const ViewDetail = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const { data: detailData } = useGetLetterDetail();
 
+  const { changeLetterState } = useLetterActions();
   const [, setStep] = useFunnel({ pathName: "/write", queryName: "step" });
   const handleClickStep = () => {
+    if (!detailData) return;
+
+    changeLetterState("postNo", detailData.post_no);
     setStep(2);
   };
 
@@ -43,7 +51,9 @@ const ViewDetail = () => {
       <Layout padding="64px 0 86px 0">
         {detailData && (
           <>
-            <S.ImageContainer>
+            <S.ImageContainer
+              onSlideChange={(e) => setActiveIndex(e.activeIndex)}
+            >
               {detailData.post_img.map(({ img_url }, idx) => (
                 <S.Image key={idx}>
                   <div>
@@ -57,10 +67,23 @@ const ViewDetail = () => {
                   </div>
                 </S.Image>
               ))}
+
+              {detailData.post_img.length > 1 && (
+                <S.PaginationContainer justifyContent="center" gap={6}>
+                  {detailData.post_img.map((_, index) => (
+                    <S.Pagination key={index} page={activeIndex === index} />
+                  ))}
+                </S.PaginationContainer>
+              )}
             </S.ImageContainer>
 
             <S.DetailInfo>
-              <WishButton size={40} top="20px" right="20px" />
+              <WishButton
+                wish={!!detailData.wish}
+                size={40}
+                top="20px"
+                right="20px"
+              />
 
               <Text variant="headline2">{detailData.post_title}</Text>
 

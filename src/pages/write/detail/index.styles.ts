@@ -5,14 +5,33 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import Stack from "shared/elements/Stack";
+import Flex from "shared/elements/Flex";
 
 export const ImageContainer = styled(Swiper)`
   ${({ theme }) => css`
     background-color: ${theme.colors.bgGray};
   `}
 
+  position: relative;
   min-height: 382px;
   aspect-ratio: 375 / 382;
+`;
+
+export const PaginationContainer = styled(Flex)`
+  position: absolute;
+  bottom: 14px;
+
+  width: 100%;
+`;
+
+export const Pagination = styled.div<{ page: boolean }>`
+  ${({ theme, page }) => css`
+    background-color: ${page ? theme.colors.gray5 : theme.colors.gray2};
+  `}
+
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
 `;
 
 export const Image = styled(SwiperSlide)`

@@ -1,21 +1,20 @@
 import styled from "@emotion/styled";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/effect-fade";
+import { css } from "@emotion/react";
 
 import Flex from "shared/elements/Flex";
-import { css } from "@emotion/react";
+import Text from "shared/elements/Text";
 
 export const LetterContainer = styled(Flex)`
   position: relative;
 `;
 
-export const LetterList = styled(Swiper)`
-  width: 248px;
-  height: 372px;
+export const Guide = styled(Text)`
+  position: absolute;
 `;
 
-export const LetterItem = styled(SwiperSlide)`
+export const LetterItem = styled.div`
+  width: 248px;
+  height: 372px;
   padding: 12px 15px;
   background-color: #f4eedd;
 `;

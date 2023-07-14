@@ -1,45 +1,34 @@
 import { useRef, useState, useEffect, type ChangeEvent } from "react";
-import { EffectFade } from "swiper";
-import type { SwiperRef } from "swiper/react";
 
 import Bottom from "shared/elements/Bottom";
 import BasicButton from "shared/elements/BasicButton";
 import Layout from "shared/elements/Layout";
 import useFunnel from "shared/hooks/useFunnel";
-import IconNavi from "shared/icons/IconNavi";
+import {
+  useLetterActions,
+  useLetterContentState,
+  useStageState,
+} from "shared/stores/useLetterStore";
+import { useModalActions } from "shared/stores/useModalStore";
 
 import * as S from "./index.styles";
 
+const SIZE = {
+  fontSize: 16,
+  lineHeight: 24,
+  maxRows: 14,
+  maxLength: 210,
+};
+
 const FunnelWrite = () => {
-  const [font, setFont] = useState({
-    fontSize: 16,
-    lineHeight: 19,
-    maxRows: 17,
-    maxLength: 270,
-  });
-
-  const [, setStep] = useFunnel({ pathName: "/write", queryName: "step" });
-
-  const swiperRef = useRef<SwiperRef>(null);
-
-  const [letter, setLetter] = useState([""]);
-  const textRef = useRef<HTMLTextAreaElement[] | null[]>([]);
-
-  const [activeIndex, setActiveIndex] = useState(0);
+  const letter = useLetterContentState();
+  const stage = useStageState();
+  const { changeLetterState } = useLetterActions();
 
   useEffect(() => {
-    const activeTextarea = textRef.current[activeIndex];
-
-    if (!activeTextarea) return;
-
-    activeTextarea.style.height = `${font.lineHeight}px`;
-    const scrollHeight = activeTextarea.scrollHeight;
-    activeTextarea.style.height = `${scrollHeight}px`;
-  }, [activeIndex, letter[activeIndex], font.fontSize]);
-
-  const handleClickAdd = () => {
-    setLetter((prev) => [...prev, ""]);
-  };
+    if (stage === 0) return;
+    changeLetterState("stage", 0);
+  }, []);
 
   const handleChangeLetter = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
@@ -47,115 +36,68 @@ const FunnelWrite = () => {
       value.matchAll(/(\r\n|\n|\r|\u2028|\u2029)/g),
     ).length;
 
-    if (enterCount > font.maxRows) return;
+    if (enterCount > SIZE.maxRows) return;
 
     const scrollHeight = event.currentTarget.scrollHeight;
 
     if (scrollHeight > 372 - 24) return;
 
-    setLetter((prev) =>
-      prev.map((text, idx) => (idx === activeIndex ? value : text)),
-    );
+    changeLetterState("letterContents", value);
+  };
+
+  const textRef = useRef<HTMLTextAreaElement | null>(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  useEffect(() => {
+    if (!textRef.current) return;
+
+    textRef.current.style.height = `${SIZE.lineHeight}px`;
+    const scrollHeight = textRef.current.scrollHeight;
+    textRef.current.style.height = `${scrollHeight}px`;
+  }, [letter]);
+
+  const [, setStep] = useFunnel({ pathName: "/write", queryName: "step" });
+  const handleClickSend = () => {
+    setStep(3);
+  };
+
+  const { changeModalState } = useModalActions();
+  const handleClickDrafts = () => {
+    changeModalState("drafts");
   };
 
   return (
     <>
       <Layout padding="132px 20px 86px 20px">
         <S.LetterContainer justifyContent="center" alignItems="center">
-          <S.LetterList
-            ref={swiperRef}
-            effect="fade"
-            modules={[EffectFade]}
-            onSlideChange={(e) => setActiveIndex(e.activeIndex)}
-          >
-            {letter.map((text, index) => (
-              <S.LetterItem key={index}>
-                <S.TextArea
-                  ref={(el) => (textRef.current[index] = el)}
-                  spellCheck={false}
-                  value={text}
-                  onChange={handleChangeLetter}
-                  fontSize={font.fontSize}
-                  lineHeight={font.lineHeight}
-                />
-              </S.LetterItem>
-            ))}
-          </S.LetterList>
-
-          {letter.length > 1 && activeIndex !== 0 && (
-            <S.NaviPrev onClick={() => swiperRef.current?.swiper.slidePrev()}>
-              <IconNavi />
-            </S.NaviPrev>
+          {!isFocus && letter.length < 1 && (
+            <S.Guide
+              textAlign="center"
+              onClick={() => textRef.current?.focus()}
+            >{`여기를 누르고\n편지를 작성해보세요`}</S.Guide>
           )}
 
-          {letter.length > 1 && activeIndex !== letter.length - 1 && (
-            <S.NaviNext onClick={() => swiperRef.current?.swiper.slideNext()}>
-              <IconNavi />
-            </S.NaviNext>
-          )}
+          <S.LetterItem>
+            <S.TextArea
+              ref={textRef}
+              spellCheck={false}
+              value={letter}
+              onChange={handleChangeLetter}
+              fontSize={SIZE.fontSize}
+              lineHeight={SIZE.lineHeight}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+            />
+          </S.LetterItem>
         </S.LetterContainer>
-
-        {letter.length > 1 && (
-          <S.PaginationContainer justifyContent="center" gap={6}>
-            {letter.map((_, index) => (
-              <S.Pagination key={index} page={activeIndex === index} />
-            ))}
-          </S.PaginationContainer>
-        )}
-
-        <S.ButtonCatiner justifyContent="center">
-          <BasicButton
-            onClick={handleClickAdd}
-            width="244px"
-            height="40px"
-            color="gray1"
-            fontColor="black"
-            fontVariant="subtitle2"
-          >
-            페이지 추가
-          </BasicButton>
-        </S.ButtonCatiner>
       </Layout>
 
       <Bottom>
-        <BasicButton variant="outline">임시저장</BasicButton>
-        <BasicButton onClick={() => setStep(3)}>전송하기</BasicButton>
+        <BasicButton variant="outline" onClick={handleClickDrafts}>
+          임시저장
+        </BasicButton>
+        <BasicButton onClick={handleClickSend}>전송하기</BasicButton>
       </Bottom>
-
-      {/* <button
-        onClick={() =>
-          setFont({
-            fontSize: 16,
-            lineHeight: 28,
-            maxRows: 17,
-            maxLength: 270,
-          })
-        }
-      >
-        16으로
-      </button>
-
-      <button
-        onClick={() => {
-          setFont({
-            fontSize: 24,
-            lineHeight: 28,
-            maxRows: 12,
-            maxLength: 120,
-          });
-
-          const newLetter = [];
-          const letterString = letter.join("");
-
-          for (let i = 0; i < letterString.length; i += 120) {
-            newLetter.push(letterString.slice(i, i + 120));
-          }
-
-          setLetter(newLetter);
-        }}
-      >
-        24로
-      </button> */}
     </>
   );
 };
